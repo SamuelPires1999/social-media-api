@@ -1,0 +1,23 @@
+{
+  "name": "social-media-api",
+  "version": "1.0.0",
+  "description": "An API that simulates the process of a Social Media app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamuelPires1999/social-media-api.git"
+  },
+  "keywords": [
+    "API",
+    "node"
+  ],
+  "author": "Samuel Pires",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SamuelPires1999/social-media-api/issues"
+  },
+  "homepage": "https://github.com/SamuelPires1999/social-media-api#readme"
+}
