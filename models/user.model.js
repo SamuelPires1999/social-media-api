@@ -1,5 +1,17 @@
 const mongoose = require("mongoose");
 
+const FriendSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -14,11 +26,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    friends: {
-      type: [String],
-      required: false,
-      default: [],
-    },
+    friends: [FriendSchema],
   },
   {
     timestamps: true,
