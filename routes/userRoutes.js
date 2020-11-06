@@ -1,8 +1,11 @@
 const router = require("express").Router();
-const controller = require("../controllers/userController");
+const userController = require("../controllers/userController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
-router.get("/", controller.listAll);
-router.delete("/", controller.delete);
+router.get("/", userController.listAll);
+router.post("/friends/:id", authMiddleware, userController.requestFriend);
+router.patch("/friends/:id", authMiddleware, userController.addFriend);
+router.delete("/friends/:id", userController.declineRequest);
+router.delete("/:id", userController.deleteUser);
 
 module.exports = router;
