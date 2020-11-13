@@ -2,13 +2,9 @@ const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
   {
-    ownerId: {
-      type: String,
-      required: true,
-    },
-    ownerName: {
-      type: String,
-      required: true,
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     content: {
       type: String,

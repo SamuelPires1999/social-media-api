@@ -4,10 +4,8 @@ const Post = require("../models/post.model");
 class postController {
   async makePost(req, res) {
     try {
-      const user = await User.findOne({ _id: req.userId });
       const newPost = new Post({
-        ownerId: req.userId,
-        ownerName: user.name,
+        owner: req.userId,
         content: req.body.content,
       });
 

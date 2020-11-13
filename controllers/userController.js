@@ -13,11 +13,18 @@ class userController {
     }
   }
 
+  async listFriendRequests(req, res) {
+    const result = await FriendRequest.find({})
+      .populate("sender")
+      .populate("receiver");
+    res.json(result);
+  }
+
   async requestFriend(req, res) {
     try {
       const friendRequest = new FriendRequest({
-        senderId: req.userId,
-        receiverId: req.params.id,
+        sender: req.userId,
+        receiver: req.params.id,
       });
 
       await friendRequest.save();
