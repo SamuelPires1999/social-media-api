@@ -2,9 +2,11 @@ const User = require("../models/user.model");
 const FriendRequest = require("../models/friendRequest.model");
 
 class userController {
-  async listAll(_, res) {
+  async listAll(req, res) {
     try {
-      const users = await User.find({});
+      const users = await User.findOne({ _id: req.userId }).populate(
+        "friendList"
+      );
       res.json(users);
     } catch (error) {
       res.json({
@@ -18,6 +20,14 @@ class userController {
       .populate("sender")
       .populate("receiver");
     res.json(result);
+  }
+
+  async listFriends(req, res) {
+    const user = await FriendRequest.find({ _id: req.userId }).populate(
+      "friendList"
+    );
+
+    res.json(user);
   }
 
   async requestFriend(req, res) {
@@ -38,7 +48,12 @@ class userController {
 
   async addFriend(req, res) {
     try {
+      //update the friends request collection
       await FriendRequest.updateOne({ _id: req.params.id }, { status: true });
+      //add the receiver ID to the sender collection
+      await User.updateOne({ _id: req.userId }, { friendList: req.params.id });
+      //adding the sender ID to the receiver collection
+      await User.updateOne({ _id: req.params.id }, { friendList: req.userId });
     } catch (error) {
       console.log(error);
     }

@@ -8,7 +8,6 @@ class postController {
         owner: req.userId,
         content: req.body.content,
       });
-
       await newPost.save();
 
       console.log("A user just made a new post!");

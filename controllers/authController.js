@@ -5,9 +5,9 @@ class authController {
   async register(req, res) {
     try {
       const newUser = new User({
-        name: req.body.name,
-        password: req.body.password,
-        email: req.body.email,
+        name: req.body.data.name,
+        password: req.body.data.password,
+        email: req.body.data.email,
       });
 
       await newUser.save();
@@ -21,7 +21,7 @@ class authController {
   }
 
   async login(req, res) {
-    const { email, password } = req.body;
+    const { email, password } = req.body.data;
     let user;
     try {
       user = await User.findOne({ email, password });
