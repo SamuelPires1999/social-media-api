@@ -4,17 +4,24 @@ const jwt = require("jsonwebtoken");
 class authController {
   async register(req, res) {
     try {
-      const newUser = new User({
-        name: req.body.data.name,
-        password: req.body.data.password,
-        email: req.body.data.email,
-      });
+      const findUser = await User.findOne({ name: req.body.data.name });
 
-      await newUser.save();
+      if (findUser) {
+        console.log("user already exists");
+        res.status(404).send("user already exists");
+      } else {
+        const newUser = new User({
+          name: req.body.data.name,
+          password: req.body.data.password,
+          email: req.body.data.email,
+        });
 
-      res.json({
-        message: "user added",
-      });
+        await newUser.save();
+        console.log("user added");
+        res.json({
+          message: "user added",
+        });
+      }
     } catch (error) {
       console.log(error);
     }

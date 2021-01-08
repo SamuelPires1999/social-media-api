@@ -6,7 +6,7 @@ class postController {
     try {
       const newPost = new Post({
         owner: req.userId,
-        content: req.body.content,
+        content: req.body.data.content,
       });
       await newPost.save();
 
@@ -18,7 +18,7 @@ class postController {
   }
 
   async getAllPosts(_, res) {
-    const posts = await Post.find({});
+    const posts = await Post.find({}).populate("owner");
 
     res.json(posts);
   }
